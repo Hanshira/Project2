@@ -61,7 +61,7 @@ router.post("/:id", (req, res, next) => {
     },
     (err, product) => {
       if (err) return next(err);
-      res.redirect("/users/auth/profile");
+      res.redirect(`/users/auth/profile`);
     }
   );
 });
