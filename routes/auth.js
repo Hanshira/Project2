@@ -49,9 +49,10 @@ router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
   res.render("users/auth/edit", { user: user });
 });
 
-router.post("/:id", (req, res, next) => {
-  Product.findByIdAndUpdate(
-    req.params.id,
+router.post("/:id/edit", (req, res, next) => {
+  console.log(req.user);
+  User.findByIdAndUpdate(
+    req.user._id,
     {
       name: req.body.name,
       email: req.body.email,
@@ -59,9 +60,12 @@ router.post("/:id", (req, res, next) => {
       telephone: req.body.telephone,
       zipCode: req.body.zipCode
     },
-    (err, product) => {
+    (err, user) => {
       if (err) return next(err);
-      res.redirect(`/users/auth/profile`);
+      else {
+        console.log("I'm here" + user);
+        res.redirect("/");
+      }
     }
   );
 });

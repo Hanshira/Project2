@@ -15,12 +15,13 @@ const flash = require("connect-flash");
 
 // models
 const User = require("./models/user");
+const Doctor = require("./models/doctor");
 
 mongoose.connect("mongodb://localhost/easyDoctor");
 
 //routes require
 var index = require("./routes/index");
-const usersAuth = require("./routes//auth");
+const usersAuth = require("./routes/auth");
 
 var app = express();
 
