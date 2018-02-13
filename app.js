@@ -20,7 +20,7 @@ mongoose.connect("mongodb://localhost/easyDoctor");
 
 //routes require
 var index = require("./routes/index");
-const usersAuth = require("./routes/users/auth");
+const usersAuth = require("./routes//auth");
 
 var app = express();
 
@@ -144,7 +144,6 @@ app.use((req, res, next) => {
 
 app.use("/", index);
 app.use("/", usersAuth);
-app.use("/user", require("./routes/users/user"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

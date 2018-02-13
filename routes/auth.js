@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../../models/user");
+const User = require("../models/user");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const saltRounds = 14;
@@ -47,6 +47,23 @@ router.get("/:id", ensureLoggedIn(), (req, res, next) => {
 router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
   let user = req.user;
   res.render("users/auth/edit", { user: user });
+});
+
+router.post("/:id", (req, res, next) => {
+  Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      name: req.body.name,
+      email: req.body.email,
+      familyName: req.body.familyName,
+      telephone: req.body.telephone,
+      zipCode: req.body.zipCode
+    },
+    (err, product) => {
+      if (err) return next(err);
+      res.redirect("/users/auth/profile");
+    }
+  );
 });
 
 module.exports = router;
