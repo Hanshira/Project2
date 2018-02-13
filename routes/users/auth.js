@@ -39,4 +39,14 @@ router.get("/logout", ensureLoggedIn(), (req, res, next) => {
   res.redirect("/");
 });
 
+router.get("/:id", ensureLoggedIn(), (req, res, next) => {
+  let user = req.user;
+  res.render("users/auth/profile", { user: user });
+});
+
+router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
+  let user = req.user;
+  res.render("users/auth/edit", { user: user });
+});
+
 module.exports = router;

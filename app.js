@@ -70,6 +70,7 @@ passport.use(
       process.nextTick(() => {
         // Destructure the body
         const { name, familyName, telephone, zipCode, email } = req.body;
+        console.log("The name is " + name);
         bcrypt.genSalt(14, (err, salt) => {
           if (err) return done(err);
           bcrypt.hash(password, salt, (err, hashedPass) => {
@@ -82,7 +83,7 @@ passport.use(
               zipCode,
               password: hashedPass
             });
-
+            console.log(newUser);
             newUser.save(err => {
               console.log(err);
               if (err && err.code === 11000) {
@@ -137,11 +138,13 @@ app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.user = req.user;
   res.locals.errors = req.flash("error");
+  if (res.locals.errors.length) console.log(res.locals.errors);
   next();
 });
 
 app.use("/", index);
 app.use("/", usersAuth);
+app.use("/user", require("./routes/users/user"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -155,6 +158,7 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
+  if (res.locals.errors.length) console.log(res.locals.errors);
 
   // render the error page
   res.status(err.status || 500);

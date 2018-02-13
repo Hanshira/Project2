@@ -1,0 +1,45 @@
+<br>
+<br>
+<br>
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputName">First name </label>
+            <input type="text" class="form-control" id="inputName" value="<%= user.name %>" name="name" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputFamilyName">Last name</label>
+            <input type="text" class="form-control" id="inputFamilyName" value="<%= user.familyName %>" name="familyName" readonly>
+        </div>
+    </div>
+    <div class="form-row">
+
+        <div class="form-group col-md-6">
+            <label for="telephone">Telephone</label>
+            <input type="text" class="form-control" id="telephone" name="telephone" value="<%= user.telephone %>" readonly>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="postalCode">Postal code</label>
+            <input type="text" class="form-control" id="postalCode" value="<%= user.zipCode %>" name="zipCode" readonly>
+        </div>
+    </div>
+    <div class="form-row">
+
+        <div class="form-group col-md-6">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control" id="inputEmail" value="<%= user.email %>" name="email" readonly>
+        </div>
+    </div>
+
+</form>
+<br>
+<br>
+
+<div class="row justify-content-center">
+    <div class="col-4">
+        <button type="submit" href="/edit" class="btn btn-primary">Edit</button>
+    </div>
+    <div class="col-4">
+        <button type="submit" href="/appointment" class="btn btn-primary">My appointment</button>
+    </div>
+</div>
