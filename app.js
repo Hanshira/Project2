@@ -62,9 +62,10 @@ passport.use(
   "local-signup",
   new LocalStrategy(
     {
-      passReqToCallback: true
+      passReqToCallback: true,
+      usernameField: "email"
     },
-    (req, name, familyName, telephone, zipCode, email, password, done) => {
+    (req, username, password, done) => {
       // To avoid race conditions
       process.nextTick(() => {
         // Destructure the body
@@ -75,10 +76,10 @@ passport.use(
             if (err) return done(err);
             const newUser = new User({
               name,
+              email,
               familyName,
               telephone,
               zipCode,
-              email,
               password: hashedPass
             });
 

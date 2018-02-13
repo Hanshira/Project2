@@ -29,5 +29,13 @@
   "devDependencies": {},
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hanshira/Project2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hanshira/Project2/issues"
+  },
+  "homepage": "https://github.com/Hanshira/Project2#readme",
   "description": ""
 }
