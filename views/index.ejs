@@ -5,7 +5,7 @@
 <div class="jumbotron">
 
   <h1 class="display-4 text-center">Easy Doctor</h1>
-  <p class="lead text-center">A simple way to search and fix an appointment with a doctor</p>
+  <p class="lead text-center">A simple way to search and make an appointment with a doctor</p>
   <hr class="my-4 text-center">
   <!-- <p class="text-center">More information</p> -->
   <br>
@@ -14,17 +14,17 @@
     <div class="row justify-content-center">
 
       <div class="col-3">
-        <a class="btn btn-primary" href="users/search" role="button">I search for a doctor</a>
+        <a class="btn btn-primary" href="/users/search" role="button">I search for a doctor</a>
 
       </div>
       <div class="col-2">
-        <a class="btn btn-primary" href="/doctor/login" role="button">I am a doctor</a>
+        <a class="btn btn-primary" href="/doctors/login" role="button">I am a doctor</a>
       </div>
     </div>
     <% }  else { %>
       <div class="row justify-content-center">
         <div class="col-1">
-          <a class="btn btn-primary" href="users/search" role="button">Search</a>
+          <a class="btn btn-primary" href="/users/search" role="button">Search</a>
         </div>
       </div>
       <% } %>

@@ -1,0 +1,57 @@
+<br>
+<br>
+<br>
+<br>
+
+
+<% if (doctors.length >0)  { %>
+    <div class="card-body">
+        <h2 class="card-title">
+            Results of your search</h2>
+
+    </div>
+
+    <br>
+    <br>
+
+
+    <% doctors.forEach((doctor) => { %>
+
+        <div class="card" style=" width: 18rem;">
+            <img class="card-img-top" src="<%= doctor.imageUrl %>" alt="Card image ">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%=doctor.familyName%>
+                        <%= doctor.name %>
+                </h5>
+                <p class="card-text">Speciality:
+                    <%= doctor.speciality%>
+                </p>
+                <p class="card-text">Address:
+                    <%= doctor.address[0].street%>,
+                        <%= doctor.address[0].zipCode%>,
+                            <%= doctor.city%>,
+                </p>
+                <p class="card-text">Languages:
+                    <%= doctor.languages%>
+                </p>
+                <p class="card-text">First available date: ????
+                </p>
+                <a href="doctors/<%=doctor._id%>" class="btn btn-primary" role="button">More details</a>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+
+        <% }) %>
+
+            <% }  else { %>
+                <div class="card-body">
+                    <h2 class="card-title">
+                        <h2>Sorry, we couldn't find any doctor</h2>
+
+                </div>
+
+
+                <% } %>

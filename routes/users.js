@@ -3,23 +3,37 @@ var router = express.Router();
 const User = require("../models/user");
 const Doctor = require("../models/doctor");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
+const flash = require("connect-flash");
+const app = express();
+app.use(flash());
 
-router.get("/search", ensureLoggedIn(), (req, res, next) => {
+router.get("/search", (req, res, next) => {
   res.render("users/search");
 });
 
-router.post("/search", ensureLoggedIn(), (req, res, next) => {
-  console.log("I'm here");
+router.post("/search", (req, res, next) => {
   Doctor.find(
-    ({
-      $or: [
-        { familyName: req.body.doctorFamilyName },
-        { speciality: req.body.doctorSpeciality }
+    {
+      $and: [
+        {
+          $or: [
+            { familyName: req.body.doctorFamilyName },
+            { speciality: req.body.doctorSpeciality }
+          ]
+        },
+        { city: req.body.city }
       ]
     },
-    { "address[0].city": req.body.city }),
-    (err, doctor) => {
-      console.log(doctor);
+    (err, doctors) => {
+      if (req.body.city === "") {
+        let errors = [];
+        let error = "Fill the field with the city";
+        errors.push(error);
+        res.render("users/search", { errors: errors });
+      } else if (err) return next(err);
+      else {
+        res.render("users/searchResults", { doctors });
+      }
     }
   );
 });
@@ -30,13 +44,11 @@ router.get("/:id", ensureLoggedIn(), (req, res, next) => {
 });
 
 router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
-  console.log("I'm here");
   let user = req.user;
   res.render("users/edit", { user: user });
 });
 
 router.post("/:id/edit", (req, res, next) => {
-  console.log(req.user);
   User.findByIdAndUpdate(
     req.user._id,
     {
@@ -51,6 +63,13 @@ router.post("/:id/edit", (req, res, next) => {
       else res.redirect("/");
     }
   );
+});
+
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  res.locals.errors = errors;
+  if (res.locals.errors.length) console.log(res.locals.errors);
+  next();
 });
 
 module.exports = router;

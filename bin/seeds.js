@@ -20,11 +20,11 @@ const doctors = [
       {
         street: "0538 Bartillon Plaza",
         zipCode: "12345",
-        city: "Fatumnasi",
         floor: 3,
         lift: "No"
       }
     ],
+    city: "Paris",
     telephone: "7845617474",
     speciality: "Cardiology",
     presentation:
@@ -47,11 +47,11 @@ const doctors = [
       {
         street: "3647 Cambridge Lane",
         zipCode: "600123",
-        city: "Grugul",
         floor: 5,
         lift: "Yes"
       }
     ],
+    city: "London",
     telephone: "9317501971",
     speciality: "Ophthalmology",
     presentation:
@@ -76,11 +76,11 @@ const doctors = [
       {
         street: "6409 Westridge Trail",
         zipCode: "157780",
-        city: "Bogovarovo",
         floor: 1,
         lift: "No"
       }
     ],
+    city: "London",
     telephone: "6237069820",
     speciality: "Ophthalmology",
     presentation:
@@ -105,11 +105,11 @@ const doctors = [
       {
         street: "1438 Waubesa Terrace",
         zipCode: "1243",
-        city: "Xiping",
         floor: 2,
         lift: "Yes"
       }
     ],
+    city: "Paris",
     telephone: "1057084479",
     speciality: "Paediatrics",
     presentation:

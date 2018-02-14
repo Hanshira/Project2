@@ -67,7 +67,7 @@ passport.use(
       process.nextTick(() => {
         // Destructure the body
         const { name, familyName, telephone, zipCode, email } = req.body;
-        console.log("The name is " + name);
+
         bcrypt.genSalt(14, (err, salt) => {
           if (err) return done(err);
           bcrypt.hash(password, salt, (err, hashedPass) => {
@@ -143,6 +143,7 @@ app.use((req, res, next) => {
 
 app.use("/", require("./routes/auth"));
 app.use("/users", require("./routes/users"));
+app.use("/doctors", require("./routes/doctors"));
 app.use("/", require("./routes/index"));
 
 // catch 404 and forward to error handler

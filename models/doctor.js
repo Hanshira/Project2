@@ -34,11 +34,11 @@ const doctorSchema = new Schema({
     {
       street: { type: String, required: true },
       zipCode: { type: Number, required: true },
-      city: { type: String, required: true },
       floor: Number,
       lift: { type: String, enum: ["Yes", "No"], required: true }
     }
   ],
+  city: { type: String, required: true },
   telephone: {
     type: String,
     required: true
