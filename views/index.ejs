@@ -13,17 +13,18 @@
   <% if (!user) { %>
     <div class="row justify-content-center">
 
-      <div class="col-4">
-        <button type="button" class="btn btn-primary ">I search for a doctor</button>
+      <div class="col-3">
+        <a class="btn btn-primary" href="users/search" role="button">I search for a doctor</a>
+
       </div>
-      <div class="col-4">
-        <button type="button" class="btn btn-primary ">I am a doctor</button>
+      <div class="col-2">
+        <a class="btn btn-primary" href="/doctor/login" role="button">I am a doctor</a>
       </div>
     </div>
     <% }  else { %>
       <div class="row justify-content-center">
         <div class="col-1">
-          <button type="button" class="btn btn-primary ">Search</button>
+          <a class="btn btn-primary" href="users/search" role="button">Search</a>
         </div>
       </div>
       <% } %>

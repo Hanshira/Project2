@@ -26,7 +26,7 @@ const doctors = [
       }
     ],
     telephone: "7845617474",
-    speciality: "dentist",
+    speciality: "Cardiology",
     presentation:
       "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.",
     languages: "Hindi",
@@ -53,7 +53,7 @@ const doctors = [
       }
     ],
     telephone: "9317501971",
-    speciality: "oculist",
+    speciality: "Ophthalmology",
     presentation:
       "Fusce consequat. Nulla nisl. Nunc nisl.\n\nDuis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
     languages: "English, Spanish, Portuguese",
@@ -82,7 +82,7 @@ const doctors = [
       }
     ],
     telephone: "6237069820",
-    speciality: "otolaryngology",
+    speciality: "Ophthalmology",
     presentation:
       "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.\n\nCras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
     languages: "Italian, English, Pashto",
@@ -111,7 +111,7 @@ const doctors = [
       }
     ],
     telephone: "1057084479",
-    speciality: "gastroenterologist",
+    speciality: "Paediatrics",
     presentation:
       "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
     languages: "Italian, English",

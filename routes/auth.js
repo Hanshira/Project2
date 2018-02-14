@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Doctor = require("../models/doctor");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const saltRounds = 14;
@@ -37,37 +38,6 @@ router.post(
 router.get("/logout", ensureLoggedIn(), (req, res, next) => {
   req.logout();
   res.redirect("/");
-});
-
-router.get("/:id", ensureLoggedIn(), (req, res, next) => {
-  let user = req.user;
-  res.render("users/auth/profile", { user: user });
-});
-
-router.get("/:id/edit", ensureLoggedIn(), (req, res, next) => {
-  let user = req.user;
-  res.render("users/auth/edit", { user: user });
-});
-
-router.post("/:id/edit", (req, res, next) => {
-  console.log(req.user);
-  User.findByIdAndUpdate(
-    req.user._id,
-    {
-      name: req.body.name,
-      email: req.body.email,
-      familyName: req.body.familyName,
-      telephone: req.body.telephone,
-      zipCode: req.body.zipCode
-    },
-    (err, user) => {
-      if (err) return next(err);
-      else {
-        console.log("I'm here" + user);
-        res.redirect("/");
-      }
-    }
-  );
 });
 
 module.exports = router;
