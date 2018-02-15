@@ -55,6 +55,7 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
       address: {
         street: doctorFound.address[0].street,
         zipCode: doctorFound.address[0].zipCode,
+        city: doctorFound.city,
         floor: doctorFound.address[0].floor,
         lift: doctorFound.address[0].lift
       }

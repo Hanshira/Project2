@@ -1,34 +1,33 @@
 <h1> Hi,
-    <%= user.name %>, you just book an appointment</h1>;
+    <%= user.name %>, your appointments</h1>;
 
-<% user.appointmentsBooked.forEach((appointment) => {%>
+
+<% for(i=0; i<user.appointmentsBooked.length; i++) {%>
+
 
     <div class="card" style="width: 100">
         <div class="card-body">
             <h5 class="card-title"></h5>
-            <h6 class="card-subtitle mb-2 text-muted">
-
-                <%= doctor.familyName %>
-                    <%=doctor.name%>
+            <h6 class="card-subtitle mb-2 text-muted">Doctor:
+                <%= user.appointmentsBooked[i].doctor.familyName %>
+                    <%=user.appointmentsBooked[i].doctor.name%>
             </h6>
             <p class="card-text">
                 Date:
-                <%=moment(appointment.date).format ("ddd, DD MMM YYYY")%>
+                <%=moment(user.appointmentsBooked[i].date).format ("ddd, DD MMM YYYY")%>
 
                     <br> Hour:
-                    <%=moment(appointment.date).format ("HH")%>.00
+                    <%=moment(user.appointmentsBooked[i].date).format ("HH")%>.00
             </p>
 
             <p class="card-text">
                 Address:
-                <%= doctor.address[0].street %>,
-                    <%= doctor.address[0].zipCode %>,
-                        <%= doctor.city %>,
+                <%= user.appointmentsBooked[i].address.street %>,
+                    <%= user.appointmentsBooked[i].address.zipCode %>,
+                        <%= user.appointmentsBooked[i].address.city %>,
 
             </p>
-            <form method="POST">
-                <input type="text" name="appointmentId" value="<%=appointment._id%>" />
-            </form>
+
 
 
             <a href="#" class="card-link">Delete the appointment</a>
@@ -78,4 +77,5 @@
     <br>
     <br>
 
-    <% })%>
+
+    <% }%>

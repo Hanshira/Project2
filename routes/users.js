@@ -39,12 +39,19 @@ router.post("/search", (req, res, next) => {
 
 router.get("/appointments", ensureLoggedIn(), (req, res, next) => {
   let user = req.user;
-  Appointment.find({ patient: req.user._id })
-    .populate("doctor")
-    .exec((err, doctor) => {
+  User.findById(req.user._id)
+    .populate("appointmentsBooked")
+    .exec((err, user) => {
       if (err) return next(err);
-      console.log(Appointment.find({ patient: req.user._id }));
-      // res.render("users/appointments", { user, moment });
+      else {
+        user.appointmentsBooked.forEach(appointment => {
+          Appointment.findById(appointment._id)
+            .populate("doctor")
+            .exec((err, appointment) => {
+              res.render("users/appointments", { user, appointment, moment });
+            });
+        });
+      }
     });
 });
 
