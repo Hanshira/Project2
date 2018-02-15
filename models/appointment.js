@@ -10,8 +10,10 @@ const appointmentSchema = new Schema({
   patient: Schema.Types.ObjectId,
   doctor: Schema.Types.ObjectId,
   address: {
-    street: { type: String },
-    zipCode: { type: Number }
+    street: { type: String, required: true },
+    zipCode: { type: Number, required: true },
+    floor: Number,
+    lift: { type: String, enum: ["Yes", "No"], required: true }
   }
 });
 

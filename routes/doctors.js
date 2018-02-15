@@ -47,56 +47,71 @@ router.get("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
 
 router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
   console.log("I'm here");
-
-  const newAppointment = new Appointment({
-    date: req.body.date,
-    patient: req.user._id,
-    doctor: req.params.doctorId
-  });
-
-  newAppointment.save((err, newAppointmentSaved) => {
-    if (newAppointment.errors) {
-      Object.values(newAppointment.errors).forEach(error => {
-        req.flash("error", error.message);
-      });
-      return res.redirect("/:doctorId/availability");
-    }
-
-    Doctor.findByIdAndUpdate(
-      req.params.doctorId,
-      {
-        $push: {
-          appointmentsBooked: newAppointmentSaved._id
-        }
-      },
-      (err, doctor) => {
-        console.log("DEBUG err, doctor", err, doctor);
+  Doctor.findById(req.params.doctorId, (err, doctorFound) => {
+    const newAppointment = new Appointment({
+      date: req.body.date,
+      patient: req.user._id,
+      doctor: req.params.doctorId,
+      address: {
+        street: doctorFound.address[0].street,
+        zipCode: doctorFound.address[0].zipCode,
+        floor: doctorFound.address[0].floor,
+        lift: doctorFound.address[0].lift
       }
-    );
+    });
+    console.log("first time" + newAppointment);
 
-    User.findByIdAndUpdate(
-      req.user._id,
-      {
-        $push: {
-          appointmentsBooked: newAppointmentSaved._id
-        }
-      },
-      (err, user) => {
-        console.log("DEBUG err, user", err, user);
-      }
-    );
-
-    if (err) return next(err);
-
-    User.findById(req.user._id)
-      .populate("appointmentsBooked")
-      .exec((err, user) => {
-        if (err) return next(err);
-
-        Doctor.findById(req.params.doctorId, (err, doctor) => {
-          res.render("users/appointments", { user: user, doctor, moment });
+    newAppointment.save((err, newAppointmentSaved) => {
+      if (newAppointment.errors) {
+        Object.values(newAppointment.errors).forEach(error => {
+          req.flash("error", error.message);
         });
-      });
+        return res.redirect("/:doctorId/availability");
+      }
+      Doctor.findByIdAndUpdate(
+        req.params.doctorId,
+        {
+          $push: {
+            appointmentsBooked: newAppointmentSaved._id
+          }
+        },
+        (err, doctor) => {
+          console.log("DEBUG err, doctor", err, doctor);
+        }
+      );
+
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $push: {
+            appointmentsBooked: newAppointmentSaved._id
+          }
+        },
+        (err, user) => {
+          console.log("DEBUG err, user", err, user);
+        }
+      );
+
+      if (err) return next(err);
+
+      User.findById(req.user._id)
+        .populate("appointmentsBooked")
+        .exec((err, user) => {
+          if (err) return next(err);
+
+          Doctor.findById(req.params.doctorId, (err, doctor) => {
+            console.log(
+              "2" + user.appointmentsBooked[user.appointmentsBooked.length - 1]
+            );
+
+            res.render("users/appointmentBooked", {
+              user: user,
+              doctor,
+              moment
+            });
+          });
+        });
+    });
   });
 });
 
