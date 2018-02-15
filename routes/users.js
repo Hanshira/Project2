@@ -3,9 +3,6 @@ var router = express.Router();
 const User = require("../models/user");
 const Doctor = require("../models/doctor");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
-const flash = require("connect-flash");
-const app = express();
-app.use(flash());
 
 router.get("/search", (req, res, next) => {
   res.render("users/search");
@@ -65,11 +62,25 @@ router.post("/:id/edit", (req, res, next) => {
   );
 });
 
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  res.locals.errors = errors;
-  if (res.locals.errors.length) console.log(res.locals.errors);
-  next();
+router.post("/doctors/:doctorId", ensureLoggedIn(), (req, res, next) => {
+  console.log("I'm here");
+  Doctor.findByIdAndUpdate(
+    req.params.doctorId,
+    {
+      $push: {
+        comments: {
+          date: req.body.date,
+          body: req.body.review,
+          rate: req.body.rate,
+          author: req.user._id
+        }
+      }
+    },
+    (err, doctor) => {
+      if (err) return next(err);
+      res.render("doctors/:doctorId", { doctor });
+    }
+  );
 });
 
 module.exports = router;

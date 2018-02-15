@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("./user");
 const Schema = mongoose.Schema;
+const TYPES = require("../config/speciality-types");
 
 const doctorSchema = new Schema({
   name: {
@@ -14,7 +15,8 @@ const doctorSchema = new Schema({
   imageUrl: String,
   speciality: {
     type: String,
-    required: true
+    required: true,
+    enum: TYPES
   },
   prices: {
     price: Number,
@@ -46,7 +48,14 @@ const doctorSchema = new Schema({
   presentation: String,
   languages: String,
   website: String,
-  comments: [{ body: String, date: Date, author: Schema.Types.ObjectId }],
+  comments: [
+    {
+      body: String,
+      rate: { type: Number, min: 0, max: 5 },
+      date: Date,
+      author: Schema.Types.ObjectId
+    }
+  ],
   email: {
     type: String,
     unique: true,

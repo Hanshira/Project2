@@ -6,93 +6,132 @@
 </div>
 
 
-<div class="d-flex flex-row">
 
+
+
+<div class="col-sm-8">
     <div class="col-sm-4" style=" width: 18rem;">
         <img class="card-img-top" src="<%= doctor.imageUrl %>" alt="Card image cap">
     </div>
-
-
-
-    <div class="col-sm-8">
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Name</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="name" value="<%= doctor.familyName %> <%= doctor.name%>">
-            </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Name</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="name" value="<%= doctor.familyName %> <%= doctor.name%>">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Speciality</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="speciality" value="<%= doctor.speciality %>">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Speciality</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="speciality" value="<%= doctor.speciality %>">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Price</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="price" value="<%= doctor.prices.price %>">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Price</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="price" value="<%= doctor.prices.price %>">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Payment method</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="payment" value="<%= doctor.prices.paymentMethod %> ">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Payment method</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="payment" value="<%= doctor.prices.paymentMethod %> ">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Working hours</label>
-            <div class="col-sm-8">
-                <textarea readonly class="form-control-plaintext" id="workingHours" rows="6">
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Working hours</label>
+        <div class="col-sm-8">
+            <textarea readonly class="form-control-plaintext" id="workingHours" rows="6">
                         <% doctor.workingHours.forEach(workingDay => { %>
                         <%= workingDay.day %> - <%=  workingDay.hours  %> <%}) %> 
                     </textarea>
-            </div>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Address</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="address" value=" <%= doctor.address[0].street%>, <%= doctor.address[0].zipCode%>, <%= doctor.city%> ">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Address</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="address" value=" <%= doctor.address[0].street%>, <%= doctor.address[0].zipCode%>, <%= doctor.city%> ">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Telephone</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="telephone" value="<%= doctor.telephone %> ">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Telephone</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="telephone" value="<%= doctor.telephone %> ">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Email</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="email" value="<%= doctor.email %> ">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Email</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="email" value="<%= doctor.email %> ">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Presentation</label>
-            <div class="col-sm-8">
-                <textarea readonly class="form-control-plaintext" id="workingHours" rows="4"><%= doctor.presentation %></textarea>
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Presentation</label>
+        <div class="col-sm-8">
+            <textarea readonly class="form-control-plaintext" id="workingHours" rows="4"><%= doctor.presentation %></textarea>
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Languages spoken</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="languages" value="<%= doctor.languages %> ">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Languages spoken</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="languages" value="<%= doctor.languages %> ">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-4 col-form-label">Website</label>
-            <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="website" value="<%= doctor.website%> ">
-            </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Website</label>
+        <div class="col-sm-8">
+            <input type="text" readonly class="form-control-plaintext" id="website" value="<%= doctor.website%> ">
         </div>
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Reviews</label>
-            <div class="col-sm-10">
-                <textarea readonly class="form-control-plaintext" id="workingHours" rows="6">
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Reviews</label>
+        <div class="col-sm-10">
+            <textarea readonly class="form-control-plaintext" id="workingHours" rows="6">
                             <% doctor.comments.forEach(comment => { %>
                             <%= comment.body %> 
-                            <%=  comment.day  %> -  <%=  comment.author  %>   <%}) %> 
-                        </textarea>
+                            Day: <%=  comment.date  %> 
+                            Rate: <%=  comment.rate %> 
+                             <% }) %> 
+            </textarea>
+
+            <a href="#" class="btn btn-primary" role="button">Check availability</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Leave a comment</button>
+
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form action="/doctors/<%=doctor._id%>" method="POST">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="date" class="col-form-label">Date:</label>
+                                    <input type="date" class="form-control" id="date" name="date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Review:</label>
+                                    <textarea class="form-control" id="message-text" name="review"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rate" class="col-form-label">Rate:</label>
+                                    <input type="number" class="form-control" id="date" name="rate">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Send review</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
