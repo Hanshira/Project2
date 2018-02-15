@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("./user");
+const Appointment = require("./appointment");
 const Schema = mongoose.Schema;
 const TYPES = require("../config/speciality-types");
 
@@ -30,6 +31,12 @@ const doctorSchema = new Schema({
         required: true
       },
       hours: { type: String, required: true }
+    }
+  ],
+  appointmentsBooked: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Appointment"
     }
   ],
   address: [

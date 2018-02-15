@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const Appointment = require("./appointment");
+
+const Doctor = require("./doctor");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -23,7 +26,13 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  appointmentsBooked: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Appointment"
+    }
+  ]
 });
 
 module.exports = mongoose.model("User", userSchema);

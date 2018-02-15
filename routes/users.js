@@ -1,7 +1,9 @@
 var express = require("express");
 var router = express.Router();
+const moment = require("moment");
 const User = require("../models/user");
 const Doctor = require("../models/doctor");
+const Appointment = require("../models/appointment");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
 router.get("/search", (req, res, next) => {
@@ -35,6 +37,44 @@ router.post("/search", (req, res, next) => {
   );
 });
 
+router.get("/appointments", ensureLoggedIn(), (req, res, next) => {
+  let user = req.user;
+  Appointment.find({ patient: req.user._id })
+    .populate("doctor")
+    .exec((err, doctor) => {
+      if (err) return next(err);
+      console.log(Appointment.find({ patient: req.user._id }));
+      // res.render("users/appointments", { user, moment });
+    });
+});
+
+// router.post("/appointments/delete", (req, res, next) => {
+//   Appointment.findByIdAndRemove(req.body.appointmentId, (err, product) => {
+//     if (err) return next(err);
+//     res.redirect("/products");
+//   });
+// });
+
+// router.post("/appointments", ensureLoggedIn(), (req, res, next) => {
+//   Doctor.findByIdAndUpdate(
+//     req.params.doctorId,
+//     {
+//       $push: {
+//         comments: {
+//           date: req.body.date,
+//           body: req.body.review,
+//           rate: req.body.rate,
+//           author: req.user._id
+//         }
+//       }
+//     },
+//     (err, doctor) => {
+//       if (err) return next(err);
+//       res.render("doctors/doctorinfo", { doctor });
+//     }
+//   );
+// });
+
 router.get("/:id", ensureLoggedIn(), (req, res, next) => {
   let user = req.user;
   res.render("users/profile", { user: user });
@@ -58,27 +98,6 @@ router.post("/:id/edit", (req, res, next) => {
     (err, user) => {
       if (err) return next(err);
       else res.redirect("/");
-    }
-  );
-});
-
-router.post("/doctors/:doctorId", ensureLoggedIn(), (req, res, next) => {
-  console.log("I'm here");
-  Doctor.findByIdAndUpdate(
-    req.params.doctorId,
-    {
-      $push: {
-        comments: {
-          date: req.body.date,
-          body: req.body.review,
-          rate: req.body.rate,
-          author: req.user._id
-        }
-      }
-    },
-    (err, doctor) => {
-      if (err) return next(err);
-      res.render("doctors/:doctorId", { doctor });
     }
   );
 });

@@ -16,6 +16,7 @@ const flash = require("connect-flash");
 // models
 const User = require("./models/user");
 const Doctor = require("./models/doctor");
+const Appointment = require("./models/appointment");
 
 mongoose.connect("mongodb://localhost/easyDoctor");
 

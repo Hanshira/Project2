@@ -1,0 +1,31 @@
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <% for (i=0; i<14; i++) { %>
+                    <th scope="col" class="<%=moment(moment()).add(i, 'days')%>">
+                        <%= moment(moment()).add(i, 'days').format ("ddd, DD MMM YYYY");%>
+                    </th>
+                    <% } %>
+
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var j=9; j<=19; j++) {%>
+                <tr>
+                    <% for (var i=0; i<14; i++) {%>
+                        <td class="<%=moment(moment()).add(i, 'days')%>">
+                            <form method="POST">
+                                <input type="hidden" name="date" value="<%=moment(moment()).add(i, 'days')%>" />
+                                <button type="submit" class="btn btn-outline-success">
+                                    <%= j %>.00</button>
+                            </form>
+
+
+                        </td>
+                        <%} %>
+                </tr>
+                <%} %>
+        </tbody>
+    </table>
+</div>
