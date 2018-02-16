@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
@@ -18,7 +19,8 @@ const User = require("./models/user");
 const Doctor = require("./models/doctor");
 const Appointment = require("./models/appointment");
 
-mongoose.connect("mongodb://localhost/easyDoctor");
+mongoose.connect("mongodb://localhost/deploy-exercise");
+mongoose.connect(process.env.MONGODB_URI);
 
 const app = express();
 
