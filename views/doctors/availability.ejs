@@ -1,3 +1,5 @@
+<!-- <pre><%= JSON.stringify(doctor, null, 4) %></pre> -->
+
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
@@ -11,21 +13,36 @@
             </tr>
         </thead>
         <tbody>
-            <% for (var j=9; j<=19; j++) {%>
+            <% for (var h=9; h<=19; h++) {%>
                 <tr>
                     <% for (var i=0; i<14; i++) {%>
-                        <td class="<%=moment(moment()).add(i, 'days')%>">
+                        <% 
+                            let currentDate = moment(moment()).add(i, 'days')
+                        %>
+                            <td class="<%= currentDate %>">
 
-                            <form method="POST">
-                                <input type="hidden" name="date" value="<%=moment(moment()).add(i, 'days')%>" />
-                                <input type="hidden" name="hour" value="<%=j %>.00" />
-                                <button type="submit" id="hour" class="btn btn-outline-success">
-                                    <%= j %>.00</button>
-                            </form>
+                                <% 
+                            let isAvailable = true
+                            for (let i = 0; i < doctor.appointmentsBooked.length; i++) {
+                                if (doctor.appointmentsBooked[i].hour == h+".00" && moment(currentDate).format("YYYY-MM-DD") == doctor.appointmentsBooked[i].date.toISOString().substr(0,10))
+                                    isAvailable = false
+                            }
+                            if (!isAvailable) { %>
+                                    <button id="hour" class="btn btn-danger">
+                                        <%= h %>.00
+                                    </button>
+                                    <% } else { %>
 
-
-                        </td>
-                        <%} %>
+                                        <form method="POST">
+                                            <input type="hidden" name="date" value="<%= currentDate %>" />
+                                            <input type="hidden" name="hour" value="<%=h %>.00" />
+                                            <button type="submit" id="hour" class="btn btn-outline-success">
+                                                <%= h %>.00
+                                            </button>
+                                        </form>
+                                        <% } %>
+                            </td>
+                            <%} %>
                 </tr>
                 <%} %>
         </tbody>

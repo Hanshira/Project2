@@ -13,7 +13,7 @@ router.get("/search", (req, res, next) => {
 router.post("/search", (req, res, next) => {
   Doctor.find(
     {
-      $and: [
+      $or: [
         {
           $or: [
             { familyName: req.body.doctorFamilyName },

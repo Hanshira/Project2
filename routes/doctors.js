@@ -37,12 +37,21 @@ router.post("/:doctorId", ensureLoggedIn(), (req, res, next) => {
 });
 
 router.get("/:doctorId/availability", (req, res, next) => {
-  Doctor.findById(req.params.doctorId, (err, doctor) => {
-    if (err) return next(err);
-    else {
-      res.render("doctors/availability", { doctor, moment });
-    }
-  });
+  Doctor.findById(req.params.doctorId)
+    .populate("appointmentsBooked")
+    // .populate({
+    //   path: "appointmentsBooked",
+    //   populate: {
+    //     path: "patient",
+    //     model: "User"
+    //   }
+    // })
+    .exec((err, doctor) => {
+      if (err) return next(err);
+      else {
+        res.render("doctors/availability", { doctor, moment });
+      }
+    });
 });
 
 router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
