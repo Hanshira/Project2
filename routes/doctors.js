@@ -4,7 +4,7 @@ const moment = require("moment");
 const User = require("../models/user");
 const Doctor = require("../models/doctor");
 const Appointment = require("../models/appointment");
-
+const $ = require("jquery");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
 router.get("/:doctorId", (req, res, next) => {
@@ -50,6 +50,7 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
   Doctor.findById(req.params.doctorId, (err, doctorFound) => {
     const newAppointment = new Appointment({
       date: req.body.date,
+      hour: req.body.hour,
       patient: req.user._id,
       doctor: req.params.doctorId,
       address: {
@@ -60,7 +61,6 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
         lift: doctorFound.address[0].lift
       }
     });
-    console.log("first time" + newAppointment);
 
     newAppointment.save((err, newAppointmentSaved) => {
       if (newAppointment.errors) {
@@ -76,9 +76,7 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
             appointmentsBooked: newAppointmentSaved._id
           }
         },
-        (err, doctor) => {
-          console.log("DEBUG err, doctor", err, doctor);
-        }
+        (err, doctor) => {}
       );
 
       User.findByIdAndUpdate(
@@ -88,9 +86,7 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
             appointmentsBooked: newAppointmentSaved._id
           }
         },
-        (err, user) => {
-          console.log("DEBUG err, user", err, user);
-        }
+        (err, user) => {}
       );
 
       if (err) return next(err);
@@ -101,10 +97,6 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
           if (err) return next(err);
 
           Doctor.findById(req.params.doctorId, (err, doctor) => {
-            console.log(
-              "2" + user.appointmentsBooked[user.appointmentsBooked.length - 1]
-            );
-
             res.render("users/appointmentBooked", {
               user: user,
               doctor,

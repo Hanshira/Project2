@@ -15,9 +15,11 @@
                 <tr>
                     <% for (var i=0; i<14; i++) {%>
                         <td class="<%=moment(moment()).add(i, 'days')%>">
+
                             <form method="POST">
                                 <input type="hidden" name="date" value="<%=moment(moment()).add(i, 'days')%>" />
-                                <button type="submit" class="btn btn-outline-success">
+                                <input type="hidden" name="hour" value="<%=j %>.00" />
+                                <button type="submit" id="hour" class="btn btn-outline-success">
                                     <%= j %>.00</button>
                             </form>
 

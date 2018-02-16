@@ -5,17 +5,27 @@
 <div class="card" style="width: 100">
     <div class="card-body">
         <h5 class="card-title"></h5>
-        <h6 class="card-subtitle mb-2 text-muted">
+        <h4 class="card-subtitle mb-2 text-primary">
 
             <%= doctor.familyName %>
                 <%=doctor.name%>
-        </h6>
+        </h4>
         <p class="card-text">
-            Date:
-            <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-1].date).format ("ddd, DD MMM YYYY")%>
 
-                <br> Hour:
-                <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-1].date).format ("HH")%>.00
+            <% if (user.appointmentsBooked.length===0) { %>
+                Date:
+                <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-1].date).format ("ddd, DD MMM YYYY")%>
+
+                    <br> Hour:
+                    <%= user.appointmentsBooked[user.appointmentsBooked.length-1].hour%>.00
+
+                        <%} else { %>
+                            Date:
+                            <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-1].date).format ("ddd, DD MMM YYYY")%>
+
+                                <br> Hour:
+                                <%= user.appointmentsBooked[user.appointmentsBooked.length-1].hour%>.00
+                                    <%}%>
         </p>
 
         <p class="card-text">

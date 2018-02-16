@@ -44,11 +44,24 @@ router.get("/appointments", ensureLoggedIn(), (req, res, next) => {
     .exec((err, user) => {
       if (err) return next(err);
       else {
+        var doctors = [];
         user.appointmentsBooked.forEach(appointment => {
+          console.log(appointment);
           Appointment.findById(appointment._id)
             .populate("doctor")
             .exec((err, appointment) => {
-              res.render("users/appointments", { user, appointment, moment });
+              let doctor = {
+                doctorfamilyName: appointment.doctor.familyName,
+                doctorname: appointment.doctor.name
+              };
+              doctors.push(doctor);
+              console.log(appointment);
+              res.render("users/appointments", {
+                user,
+                appointment,
+                doctors,
+                moment
+              });
             });
         });
       }

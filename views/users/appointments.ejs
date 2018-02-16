@@ -1,6 +1,8 @@
 <h1> Hi,
-    <%= user.name %>, your appointments</h1>;
+    <%= user.name %>, your appointments</h1>
 
+<br>
+<br>
 
 <% for(i=0; i<user.appointmentsBooked.length; i++) {%>
 
@@ -8,16 +10,16 @@
     <div class="card" style="width: 100">
         <div class="card-body">
             <h5 class="card-title"></h5>
-            <h6 class="card-subtitle mb-2 text-muted">Doctor:
-                <%= user.appointmentsBooked[i].doctor.familyName %>
-                    <%=user.appointmentsBooked[i].doctor.name%>
-            </h6>
+            <h4 class="card-subtitle mb-2 text-primary">Doctor:
+                <%= appointment.doctor.familyName %>
+                    <%= appointment.doctor.name %>
+            </h4>
             <p class="card-text">
                 Date:
                 <%=moment(user.appointmentsBooked[i].date).format ("ddd, DD MMM YYYY")%>
 
                     <br> Hour:
-                    <%=moment(user.appointmentsBooked[i].date).format ("HH")%>.00
+                    <%= moment(appointment.hour).format("HH")%>.00
             </p>
 
             <p class="card-text">
@@ -28,10 +30,18 @@
 
             </p>
 
+            <p class="card-text">
+                Price:
+                <%= appointment.doctor.prices.price %> euros
+
+
+            </p>
+
 
 
             <a href="#" class="card-link">Delete the appointment</a>
-
+            <br>
+            <br>
             <br>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Leave a comment</button>
 
