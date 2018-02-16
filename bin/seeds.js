@@ -1,5 +1,6 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/easyDoctor");
+mongoose.connect(process.env.MONGODB_URI);
 const Doctor = require("../models/doctor");
 
 const doctors = [
