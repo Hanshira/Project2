@@ -24,8 +24,11 @@
                                 <% 
                             let isAvailable = true
                             for (let i = 0; i < doctor.appointmentsBooked.length; i++) {
-                                if (doctor.appointmentsBooked[i].hour == h+".00" && moment(currentDate).format("YYYY-MM-DD") == doctor.appointmentsBooked[i].date.toISOString().substr(0,10))
-                                    isAvailable = false
+                                if ((doctor.appointmentsBooked[i].hour == h+".00" && moment(currentDate).format("YYYY-MM-DD") == doctor.appointmentsBooked[i].date.toISOString().substr(0,10)) 
+                                ||  moment(currentDate).format("ddd")=="Sun")
+                                isAvailable = false
+                                   
+                                  
                             }
                             if (!isAvailable) { %>
                                     <button id="hour" class="btn btn-danger">
