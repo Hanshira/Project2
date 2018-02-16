@@ -36,7 +36,7 @@ router.post("/:doctorId", ensureLoggedIn(), (req, res, next) => {
   );
 });
 
-router.get("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
+router.get("/:doctorId/availability", (req, res, next) => {
   Doctor.findById(req.params.doctorId, (err, doctor) => {
     if (err) return next(err);
     else {

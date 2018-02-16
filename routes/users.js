@@ -68,12 +68,13 @@ router.get("/appointments", ensureLoggedIn(), (req, res, next) => {
     });
 });
 
-// router.post("/appointments/delete", (req, res, next) => {
-//   Appointment.findByIdAndRemove(req.body.appointmentId, (err, product) => {
-//     if (err) return next(err);
-//     res.redirect("/products");
-//   });
-// });
+router.post("/appointments/delete", (req, res, next) => {
+  console.log(appointment);
+  Appointment.findByIdAndRemove(rappointment._id, (err, appointment) => {
+    if (err) return next(err);
+    res.redirect("/");
+  });
+});
 
 // router.post("/appointments", ensureLoggedIn(), (req, res, next) => {
 //   Doctor.findByIdAndUpdate(
