@@ -39,13 +39,13 @@ router.post("/:doctorId", ensureLoggedIn(), (req, res, next) => {
 router.get("/:doctorId/availability", (req, res, next) => {
   Doctor.findById(req.params.doctorId)
     .populate("appointmentsBooked")
-    // .populate({
-    //   path: "appointmentsBooked",
-    //   populate: {
-    //     path: "patient",
-    //     model: "User"
-    //   }
-    // })
+    .populate({
+      path: "appointmentsBooked",
+      populate: {
+        path: "patient",
+        model: "User"
+      }
+    })
     .exec((err, doctor) => {
       if (err) return next(err);
       else {

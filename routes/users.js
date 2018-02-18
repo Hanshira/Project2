@@ -40,60 +40,77 @@ router.post("/search", (req, res, next) => {
 router.get("/appointments", ensureLoggedIn(), (req, res, next) => {
   let user = req.user;
   User.findById(req.user._id)
-    .populate("appointmentsBooked")
-    .exec((err, user) => {
-      if (err) return next(err);
-      else {
-        var doctors = [];
-        user.appointmentsBooked.forEach(appointment => {
-          console.log(appointment);
-          Appointment.findById(appointment._id)
-            .populate("doctor")
-            .exec((err, appointment) => {
-              let doctor = {
-                doctorfamilyName: appointment.doctor.familyName,
-                doctorname: appointment.doctor.name
-              };
-              doctors.push(doctor);
-              console.log(appointment);
-              res.render("users/appointments", {
-                user,
-                appointment,
-                doctors,
-                moment
-              });
-            });
-        });
+    .populate({
+      path: "appointmentsBooked",
+      populate: {
+        path: "doctor",
+        model: "Doctor"
       }
+    })
+    .exec((err, user) => {
+      res.render("users/appointments", {
+        user,
+        moment
+      });
     });
+
+  // .populate("appointmentsBooked")
+  // .exec((err, user) => {
+  //   if (err) return next(err);
+  //   else {
+  //     var doctors = [];
+  //     user.appointmentsBooked.forEach(appointment => {
+  //       Appointment.findById(appointment._id)
+  //         .populate("doctor")
+  //         .exec((err, appointment) => {
+  //           let doctor = {
+  //             doctorfamilyName: appointment.doctor.familyName,
+  //             doctorname: appointment.doctor.name
+  //           };
+  //           doctors.push(doctor);
+
+  //           res.render("users/appointments", {
+  //             user,
+  //             appointment,
+  //             doctors,
+  //             moment
+  //           });
+  //         });
+  //     });
+  //   }
+  // });
 });
 
-router.post("/appointments/delete", (req, res, next) => {
-  console.log(appointment);
-  Appointment.findByIdAndRemove(rappointment._id, (err, appointment) => {
-    if (err) return next(err);
-    res.redirect("/");
-  });
-});
+// router.post("/appointments/delete", (req, res, next) => {
+//   console.log(appointment);
+//   Appointment.findByIdAndRemove(rappointment._id, (err, appointment) => {
+//     if (err) return next(err);
+//     res.redirect("/");
+//   });
+// });
 
 // router.post("/appointments", ensureLoggedIn(), (req, res, next) => {
-//   Doctor.findByIdAndUpdate(
-//     req.params.doctorId,
-//     {
-//       $push: {
-//         comments: {
-//           date: req.body.date,
-//           body: req.body.review,
-//           rate: req.body.rate,
-//           author: req.user._id
-//         }
-//       }
-//     },
-//     (err, doctor) => {
+//   console.log(req.body.appointmentId);
+//   Appointment.findById(req.body.appointmentId)
+//     .populate("doctor")
+//     .exec((err, doctor) => {
 //       if (err) return next(err);
-//       res.render("doctors/doctorinfo", { doctor });
-//     }
-//   );
+
+//       Doctor.findByIdAndUpdate(
+//         req.appointment.doctor._id,
+//         {
+//           $push: {
+//             comments: {
+//               date: req.body.date,
+//               body: req.body.review,
+//               rate: req.body.rate,
+//               author: req.user._id
+//             }
+//           }
+//         },
+//         res.render("doctors/doctorinfo", { doctor })
+//       );
+//     });
 // });
 
 router.get("/:id", ensureLoggedIn(), (req, res, next) => {

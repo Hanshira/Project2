@@ -11,28 +11,28 @@
         <div class="card-body">
             <h5 class="card-title"></h5>
             <h4 class="card-subtitle mb-2 text-primary">Doctor:
-                <%= appointment.doctor.familyName %>
-                    <%= appointment.doctor.name %>
+                <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].doctor.familyName %>
+                    <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].doctor.name %>
             </h4>
             <p class="card-text">
                 Date:
-                <%=moment(user.appointmentsBooked[i].date).format ("ddd, DD MMM YYYY")%>
+                <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-i-1].date).format ("ddd, DD MMM YYYY")%>
 
                     <br> Hour:
-                    <%= appointment.hour%>.00
+                    <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].hour%>.00
             </p>
 
             <p class="card-text">
                 Address:
-                <%= user.appointmentsBooked[i].address.street %>,
-                    <%= user.appointmentsBooked[i].address.zipCode %>,
-                        <%= user.appointmentsBooked[i].address.city %>,
+                <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].address.street %>,
+                    <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].address.zipCode %>,
+                        <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].address.city %>,
 
             </p>
 
             <p class="card-text">
                 Price:
-                <%= appointment.doctor.prices.price %> euros
+                <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].doctor.prices.price %> euros
 
 
             </p>
@@ -43,6 +43,7 @@
             <br>
             <br>
             <br>
+
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Leave a comment</button>
 
 
@@ -57,6 +58,8 @@
                         </div>
 
                         <form method="POST">
+                            <input type="hidden" name="appointmentId" value="<%= user.appointmentsBooked[user.appointmentsBooked.length-i-1]._id %>"
+                            />
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="date" class="col-form-label">Date:</label>

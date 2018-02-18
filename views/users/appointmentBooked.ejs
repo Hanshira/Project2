@@ -24,14 +24,23 @@
                             <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-1].date).format ("ddd, DD MMM YYYY")%>
 
                                 <br> Hour:
-                                <%= user.appointmentsBooked[user.appointmentsBooked.length-1].hour%>.00
+                                <%= user.appointmentsBooked[user.appointmentsBooked.length-1].hour%>
                                     <%}%>
         </p>
 
         <p class="card-text">
             Address:
             <%= doctor.address[0].street %>,
-                <%= doctor.address[0].zipCode %>,
+                <%= doctor.address[0].zipCode %>
                     <%= doctor.city %>,
 
         </p>
+
+        <div class="row">
+            <div class="col-3">
+                <a class="btn btn-primary" href="/users/appointments">See all my appointments</a>
+            </div>
+            <div class="col-3">
+                <a class="btn btn-primary" href="/">Home</a>
+            </div>
+        </div>
