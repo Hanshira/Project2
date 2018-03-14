@@ -79,18 +79,6 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
 
       if (err) return next(err);
 
-      Doctor.findByIdAndUpdate(
-        req.params.doctorId,
-        {
-          $push: {
-            appointmentsBooked: newAppointmentSaved._id
-          }
-        },
-        (err, doctor) => {
-          if (err) return next(err);
-          return doctor;
-        }
-      );
 
       User.findByIdAndUpdate(
         req.user._id,
@@ -105,20 +93,35 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
         }
       );
 
-      User.findById(req.user._id)
-        .populate("appointmentsBooked")
-        .exec((err, user) => {
+      Doctor.findByIdAndUpdate(
+        req.params.doctorId,
+        {
+          $push: {
+            appointmentsBooked: newAppointmentSaved._id
+          }
+        },
+        (err, doctor) => {
           if (err) return next(err);
+          return doctor;
+        }
+      );
 
-          Doctor.findById(req.params.doctorId, (err, doctor) => {
-            res.render("users/appointmentBooked", {
-              user: user,
-              doctor,
-              moment
-            });
+
+
+    });
+    User.findById(req.user._id)
+      .populate("appointmentsBooked")
+      .exec((err, user) => {
+        if (err) return next(err);
+
+        Doctor.findById(req.params.doctorId, (err, doctor) => {
+          res.render("users/appointmentBooked", {
+            user: user,
+            doctor,
+            moment
           });
         });
-    });
+      });
   });
 });
 
