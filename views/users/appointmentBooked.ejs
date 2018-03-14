@@ -12,20 +12,13 @@
         </h4>
         <p class="card-text">
 
-            <% if (user.appointmentsBooked.length===0) { %>
-                Date:
-                <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-1].date).format ("ddd, DD MMM YYYY")%>
 
-                    <br> Hour:
-                    <%= user.appointmentsBooked[user.appointmentsBooked.length-1].hour%>.00
+            Date:
+            <%=moment(user.appointmentsBooked[user.appointmentsBooked.length].date).format ("ddd, DD MMM YYYY")%>
 
-                        <%} else { %>
-                            Date:
-                            <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-1].date).format ("ddd, DD MMM YYYY")%>
+                <br> Hour:
+                <%= user.appointmentsBooked[user.appointmentsBooked.length].hour%>
 
-                                <br> Hour:
-                                <%= user.appointmentsBooked[user.appointmentsBooked.length-1].hour%>
-                                    <%}%>
         </p>
 
         <p class="card-text">

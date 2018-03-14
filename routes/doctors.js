@@ -4,7 +4,7 @@ const moment = require("moment");
 const User = require("../models/user");
 const Doctor = require("../models/doctor");
 const Appointment = require("../models/appointment");
-const $ = require("jquery");
+//const $ = require("jquery");
 const { ensureLoggedIn, ensureLoggedOut } = require("connect-ensure-login");
 
 router.get("/:doctorId", (req, res, next) => {
@@ -38,7 +38,7 @@ router.post("/:doctorId", ensureLoggedIn(), (req, res, next) => {
 
 router.get("/:doctorId/availability", (req, res, next) => {
   Doctor.findById(req.params.doctorId)
-    .populate("appointmentsBooked")
+    //.populate("appointmentsBooked")
     .populate({
       path: "appointmentsBooked",
       populate: {
@@ -55,7 +55,6 @@ router.get("/:doctorId/availability", (req, res, next) => {
 });
 
 router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
-  console.log("I'm here");
   Doctor.findById(req.params.doctorId, (err, doctorFound) => {
     const newAppointment = new Appointment({
       date: req.body.date,
@@ -76,8 +75,10 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
         Object.values(newAppointment.errors).forEach(error => {
           req.flash("error", error.message);
         });
-        return res.redirect("/:doctorId/availability");
       }
+
+      if (err) return next(err);
+
       Doctor.findByIdAndUpdate(
         req.params.doctorId,
         {
@@ -85,7 +86,10 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
             appointmentsBooked: newAppointmentSaved._id
           }
         },
-        (err, doctor) => {}
+        (err, doctor) => {
+          if (err) return next(err);
+          return doctor;
+        }
       );
 
       User.findByIdAndUpdate(
@@ -95,10 +99,11 @@ router.post("/:doctorId/availability", ensureLoggedIn(), (req, res, next) => {
             appointmentsBooked: newAppointmentSaved._id
           }
         },
-        (err, user) => {}
+        (err, user) => {
+          if (err) return next(err);
+          return user;
+        }
       );
-
-      if (err) return next(err);
 
       User.findById(req.user._id)
         .populate("appointmentsBooked")

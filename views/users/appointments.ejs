@@ -1,3 +1,5 @@
+<pre><%= JSON.stringify(user, null, 4) %></pre>
+
 <h1> Hi,
     <%= user.name %>, your appointments</h1>
 
@@ -19,7 +21,7 @@
                 <%=moment(user.appointmentsBooked[user.appointmentsBooked.length-i-1].date).format ("ddd, DD MMM YYYY")%>
 
                     <br> Hour:
-                    <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].hour%>.00
+                    <%= user.appointmentsBooked[user.appointmentsBooked.length-i-1].hour%>
             </p>
 
             <p class="card-text">
@@ -36,11 +38,14 @@
 
 
             </p>
-
-
-
-            <a href="#" class="card-link">Delete the appointment</a>
             <br>
+
+
+            <form action="/users/appointments/delete" method="POST">
+                <input type="hidden" name="appointmentId" value="<%= user.appointmentsBooked[user.appointmentsBooked.length-i-1]._id %>"
+                />
+                <button type="submit" class="btn btn-primary">Delete the appointment</button>
+            </form>
             <br>
             <br>
 

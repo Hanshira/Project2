@@ -11,9 +11,10 @@ router.get("/search", (req, res, next) => {
 });
 
 router.post("/search", (req, res, next) => {
+  //let doctorFamilyName = req.body.doctorFamilyName.charAt(0).toUpperCase() + string.slice(1)
   Doctor.find(
     {
-      $or: [
+      $and: [
         {
           $or: [
             { familyName: req.body.doctorFamilyName },
@@ -53,41 +54,66 @@ router.get("/appointments", ensureLoggedIn(), (req, res, next) => {
         moment
       });
     });
-
-  // .populate("appointmentsBooked")
-  // .exec((err, user) => {
-  //   if (err) return next(err);
-  //   else {
-  //     var doctors = [];
-  //     user.appointmentsBooked.forEach(appointment => {
-  //       Appointment.findById(appointment._id)
-  //         .populate("doctor")
-  //         .exec((err, appointment) => {
-  //           let doctor = {
-  //             doctorfamilyName: appointment.doctor.familyName,
-  //             doctorname: appointment.doctor.name
-  //           };
-  //           doctors.push(doctor);
-
-  //           res.render("users/appointments", {
-  //             user,
-  //             appointment,
-  //             doctors,
-  //             moment
-  //           });
-  //         });
-  //     });
-  //   }
-  // });
 });
 
-// router.post("/appointments/delete", (req, res, next) => {
-//   console.log(appointment);
-//   Appointment.findByIdAndRemove(rappointment._id, (err, appointment) => {
-//     if (err) return next(err);
-//     res.redirect("/");
-//   });
-// });
+router.post("/appointments/delete", ensureLoggedIn(), (req, res, next) => {
+  let appointmentId = req.body.appointmentId;
+
+  Appointment.findById(appointmentId)
+    .populate("doctor")
+    .exec((err, appointment) => {
+      if (err) return next(err);
+      else {
+        let indexDoctor = appointment.doctor.appointmentsBooked.indexOf(
+          appointmentId
+        );
+        let newAppointmentsBookedDoctor = appointment.doctor.appointmentsBooked.splice(
+          indexDoctor,
+          1
+        );
+        Doctor.findByIdAndUpdate(
+          appointment.doctor,
+          {
+            appointmentsBooked: newAppointmentsBookedDoctor
+          },
+          (err, doctor) => {
+            if (err) return next(err);
+            else
+              console.log(
+                "doctor.appointmentsBooked =" + doctor.appointmentsBooked
+              );
+          }
+        );
+      }
+    });
+
+  Appointment.findByIdAndRemove(appointmentId, (err, appointment) => {
+    if (err) return next(err);
+    else {
+      let indexUser = req.user.appointmentsBooked.indexOf(appointmentId);
+      let newAppointmentsBookedUser = req.user.appointmentsBooked.splice(
+        indexUser,
+        1
+      );
+
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          appointmentsBooked: newAppointmentsBookedUser
+        },
+        (err, user) => {
+          if (err) return next(err);
+          else
+            console.log("user.appointmentsBooked =" + user.appointmentsBooked);
+        }
+      );
+
+      console.log("deleted from appointments db");
+    }
+
+    res.redirect("users/appointments");
+  });
+});
 
 // router.post("/appointments", ensureLoggedIn(), (req, res, next) => {
 //   console.log(req.body.appointmentId);
